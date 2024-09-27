@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -17,7 +18,7 @@ public class MySecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.csrf(it->it.disable()) //关闭csrf
+        httpSecurity.csrf(AbstractHttpConfigurer::disable) //关闭csrf
                 .authorizeHttpRequests(it->it.requestMatchers("/admin/**").hasRole("ADMIN") //管理员角色才能访问管理模块
                         .anyRequest().authenticated() //任何路径都要进行拦截
                 )

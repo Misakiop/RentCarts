@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <title>车辆列表</title>
+</head>
+<body>
+    <li sec:authorize="!isAuthenticated()"><div>
+        <a href='/user/login'>登录</a> or <a href='/user/registe'>注册</a></div>
+    </li>
+    <li sec:authorize="isAuthenticated()">
+        <span sec:authentication="name"></span>,您好 您的身份是
+        <span sec:authentication="principal.authorities"></span>
+        <a href='/user/logout'>注销</a>
+    </li>
+    <div>
+        <!-- 权限判断，authorize：vt. 批准，认可；授权给；委托代替 -->
+        通过权限判断：
+        <button sec:authorize="hasAuthority('ROLE_ADMIN')">新增</button>
+        <button sec:authorize="hasAuthority('ROLE_ADMIN')">删除</button>
+        <button sec:authorize="hasAuthority('ROLE_ADMIN')">修改</button>
+        <button sec:authorize="hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')">查看</button>
+        <br/>
+        通过角色判断：
+        <button sec:authorize="hasRole('ADMIN')">新增</button>
+        <button sec:authorize="hasRole('ADMIN')">删除</button>
+        <button sec:authorize="hasRole('ADMIN')">修改</button>
+        <button sec:authorize="hasAnyRole('ADMIN', 'USER')">查看</button>
+    </div>
+
+    <title>车辆列表</title>
+    <ul>
+        <li th:each="aitem:${listCarts}">
+            <span th:text="${aitem.getCart_id() +'-'+ aitem.getCart_name()}"></span><br>
+            <span th:text="${aitem.getCart_number() + '车型:' +aitem.getCart_category() + '挂挡类型:' +aitem.getCart_gear()}"></span><br>
+            <span th:text="${aitem.getCart_star() + '评论:' +aitem.getCart_comment()+ '价格期望:' +aitem.getCart_price()}"></span>
+        </li>
+    </ul>
+</body>
+</html>

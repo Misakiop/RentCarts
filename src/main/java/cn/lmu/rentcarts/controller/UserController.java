@@ -4,8 +4,6 @@ import cn.lmu.rentcarts.pojo.JsonData;
 import cn.lmu.rentcarts.pojo.User;
 import cn.lmu.rentcarts.service.UserService;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

@@ -12,6 +12,6 @@ public interface UserMapper {
     @Select("select * from car_rental.user")
     List<User> findAll();
 
-    @Select("select * from car_rental.user where name=#{name}")
+    @Select("select * from car_rental.user where username=#{name}")
     public User selectByname(String username);
 }

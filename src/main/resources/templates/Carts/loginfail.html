@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录失败</title>
+</head>
+<body>
+<div class="col-sm-12 mx-auto text-center" th:with="exp=${session.SPRING_SECURITY_LAST_EXCEPTION}">
+    <p th:if="${exp}" th:text="${exp.message}" class="text-danger font-size-x-small"></p>
+    <p>登录失败，请<a th:href="@{/user/login}">重新登录</a>。</p>
+</div>
+</body>
+</html>

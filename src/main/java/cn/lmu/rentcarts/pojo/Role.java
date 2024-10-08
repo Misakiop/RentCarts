@@ -8,9 +8,14 @@ public class Role {
     private String roleName;
     private String roleDesc;
 
+    public Role() {
+    }
+
     public Role(int id, String roleName, String roleDesc) {
         this.id = id;
         this.roleName = roleName;
         this.roleDesc = roleDesc;
     }
+
+
 }

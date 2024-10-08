@@ -21,14 +21,16 @@ public class UserInfo {
     private List<Role> roleList;//用户角色列表
     @DateTimeFormat(pattern ="yyyy-MM-dd")
     private Date registTime;//注册时间
+    private Date lastPasswordResetDate;//最后修改密码时间
+    private String token;
 
     public UserInfo() {
     }
 
-    public UserInfo(int id, String password, String userName, String gender, String email, String telephone, String introduce, String activeCode, int state, String role, List<Role> roleList, Date registTime) {
+    public UserInfo(int id, String userName, String password, String gender, String email, String telephone, String introduce, String activeCode, int state, String role, List<Role> roleList, Date registTime, Date lastPasswordResetDate, String token) {
         this.id = id;
-        this.password = password;
         this.userName = userName;
+        this.password = password;
         this.gender = gender;
         this.email = email;
         this.telephone = telephone;
@@ -38,5 +40,7 @@ public class UserInfo {
         this.role = role;
         this.roleList = roleList;
         this.registTime = registTime;
+        this.lastPasswordResetDate = lastPasswordResetDate;
+        this.token = token;
     }
 }

@@ -2,10 +2,8 @@ package cn.lmu.rentcarts.mapper;
 
 import cn.lmu.rentcarts.pojo.Role;
 import cn.lmu.rentcarts.pojo.UserInfo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 
 import java.util.List;
 
@@ -16,10 +14,32 @@ public interface UserInfoMapper {
     public List<UserInfo> findAll();
 
     @Select("select * from user where username=#{username}")
+    @Results(id = "UserInfoMap", value = {
+            @Result(property = "roleList", column = "id",
+                    many = @Many(select = "cn.lmu.rentcarts.mapper.UserInfoMapper.findRolesByUserId",
+                            fetchType = FetchType.EAGER))})
     UserInfo findByName(String username);
 
     @Select("select * from user where id=#{id}")
+    @ResultMap("UserInfoMap")
     UserInfo findById(Integer id);
+
+    //注册用户
+    @Insert("insert into `user`(username,password) " +
+            "values(#{username},#{password})")
+    @Options(useGeneratedKeys = true, keyProperty = "id", keyColumn = "id")
+    public int add(UserInfo user);
+
+    //保存用户角色
+    @Insert("<script>" +
+            "INSERT INTO user_role" +
+            "        (user_id,role_id)" +
+            "        VALUES" +
+            "        <foreach collection ='user.roleList' item='role' separator =','>" +
+            "            (#{user.id}, #{role.id})" +
+            "        </foreach >" +
+            "</script>")
+    public int addUserRole(@Param("user") UserInfo user);
 
     @Select("select * from role where id in(select  role_id from user_role where user_role.user_id=#{userId})")
     @Results(id = "RoleMap", value = {

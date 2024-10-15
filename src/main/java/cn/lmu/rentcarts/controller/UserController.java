@@ -14,17 +14,17 @@ public class UserController {
     private UserService userService;
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String loginIndex() {
-        return "Carts/login";
+        return "login";
     }
 
     @RequestMapping(value = {"/logouted"}, method = RequestMethod.GET)
     public String loginOut() {
-        return "Carts/logouted";
+        return "logouted";
     }
 
     @RequestMapping(value = {"/loginfail"}, method = RequestMethod.GET)
     public String loginFail() {
-        return "Carts/loginfail";
+        return "loginfail";
     }
 
     @RequestMapping(value = {"/access_denied"}, method = RequestMethod.GET)
